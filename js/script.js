@@ -1,84 +1,168 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Add twinkling stars effect to the festive greeting
-  const greeting = document.querySelector(".festive-greeting");
+  // Create stars container for falling stars
+  const starsContainer = document.createElement("div");
+  starsContainer.classList.add("stars-container");
+  document.body.prepend(starsContainer);
 
-  // Create random stars/lanterns
-  for (let i = 0; i < 20; i++) {
+  // Create falling stars animation
+  function createFallingStars() {
+    // Create a new star every 1-3 seconds
+    const interval = Math.random() * 2000 + 1000;
+
     const star = document.createElement("div");
-    star.classList.add("lantern");
-    star.textContent = "✧";
-    star.style.position = "absolute";
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
-    star.style.fontSize = Math.random() * 12 + 10 + "px";
-    star.style.opacity = Math.random() * 0.5 + 0.2;
-    star.style.animationDelay = Math.random() * 3 + "s";
+    star.classList.add("star");
 
-    greeting.appendChild(star);
+    // Set random starting position and trajectory
+    const startX = Math.random();
+    const endY = Math.random();
+
+    star.style.setProperty("--star-x", startX);
+    star.style.setProperty("--star-y", endY);
+
+    // Randomize animation duration between 4-8 seconds
+    star.style.animationDuration = Math.random() * 4000 + 4000 + "ms";
+
+    starsContainer.appendChild(star);
+
+    // Remove star after animation completes
+    setTimeout(() => {
+      star.remove();
+    }, 8000);
+
+    // Create next star
+    setTimeout(createFallingStars, interval);
   }
 
-  // Add subtle pulsing animation to the greeting content
-  const greetingContent = document.querySelector(".greeting-content");
-  setInterval(function () {
-    greetingContent.style.boxShadow = "0 0 10px rgba(224, 175, 104, 0.5)";
-    setTimeout(function () {
-      greetingContent.style.boxShadow = "0 0 20px rgba(224, 175, 104, 0.7)";
-    }, 1000);
-  }, 2000);
+  // Create glowing stars in the background
+  function createGlowingStars() {
+    const numStars = 20;
 
-  // Terminal typing effect
-  const commands = [
-    "ls -l projects/",
-    "cat README.md",
-    "npm start",
-    "git status",
-    "cd projects/new-app",
-    "python3 main.py",
-  ];
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement("div");
+      star.classList.add("glow-star");
 
-  let currentCommandIndex = 0;
-  const typingText = document.querySelector(".typing-text");
-  const cursor = document.querySelector(".cursor");
+      // Random size between 2-5px
+      const size = Math.random() * 3 + 2;
+      star.style.width = size + "px";
+      star.style.height = size + "px";
 
-  function typeCommand(command, index = 0) {
-    if (index < command.length) {
-      typingText.textContent += command.charAt(index);
-      setTimeout(
-        () => typeCommand(command, index + 1),
-        Math.random() * 100 + 50
-      );
-    } else {
-      // Finished typing current command
-      setTimeout(executeCommand, 1000);
+      // Random position
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.top = Math.random() * 100 + "vh";
+
+      // Random animation delay
+      star.style.animationDelay = Math.random() * 4 + "s";
+
+      starsContainer.appendChild(star);
     }
   }
 
-  function executeCommand() {
-    // Clear the typing text
-    typingText.textContent = "";
+  // Terminal typing animation
+  function typeWriter() {
+    const commands = [
+      "node server.js",
+      "git push origin main",
+      "npm install",
+      "python3 script.py",
+      "docker-compose up -d",
+      "ssh bytespace@server.com",
+      "./deploy.sh --production",
+      "cd projects/web-app",
+      "cat .gitignore",
+    ];
 
-    // Execute current command (would add terminal output here)
-    setTimeout(startNewCommand, 500);
+    const typingText = document.querySelector(".typing-text");
+    let commandIndex = 0;
+    let charIndex = 0;
+    let currentCommand = commands[commandIndex];
+    let isTyping = true;
+    let pauseBeforeDelete = 2000; // Time before deleting in ms
+    let pauseBeforeTyping = 500; // Time before typing new command in ms
+
+    function type() {
+      if (isTyping) {
+        // Typing
+        if (charIndex < currentCommand.length) {
+          typingText.textContent += currentCommand.charAt(charIndex);
+          charIndex++;
+          setTimeout(type, Math.random() * 50 + 50); // Random delay between keystrokes
+        } else {
+          // Pause before deleting
+          isTyping = false;
+          setTimeout(type, pauseBeforeDelete);
+        }
+      } else {
+        // Deleting
+        if (charIndex > 0) {
+          typingText.textContent = currentCommand.substring(0, charIndex - 1);
+          charIndex--;
+          setTimeout(type, Math.random() * 30 + 30); // Random delay between deletes
+        } else {
+          // Switch to next command
+          isTyping = true;
+          commandIndex = (commandIndex + 1) % commands.length;
+          currentCommand = commands[commandIndex];
+          setTimeout(type, pauseBeforeTyping);
+        }
+      }
+    }
+
+    // Start typing animation
+    type();
   }
 
-  function startNewCommand() {
-    currentCommandIndex = (currentCommandIndex + 1) % commands.length;
-    typeCommand(commands[currentCommandIndex]);
+  // Create terminal history entries dynamically
+  function createTerminalHistory() {
+    const terminalBody = document.querySelector(".terminal-body");
+    const commandHistory = [
+      {
+        command: "mkdir new-project",
+        output: "Directory created successfully.",
+      },
+      { command: "npm init -y", output: "Initialized a package.json file" },
+      {
+        command: "git status",
+        output:
+          "On branch main\nYour branch is up to date with 'origin/main'.\n\nnothing to commit, working tree clean",
+      },
+    ];
+
+    // Insert new command history before the typing line
+    const typingLine = document.querySelector(".terminal-line.typing");
+
+    commandHistory.forEach((entry) => {
+      // Create command line
+      const commandLine = document.createElement("div");
+      commandLine.classList.add("terminal-line");
+
+      const prompt = document.createElement("span");
+      prompt.classList.add("prompt");
+      prompt.textContent = "bytespace@terminal:~$";
+
+      const command = document.createElement("span");
+      command.classList.add("command");
+      command.textContent = entry.command;
+
+      commandLine.appendChild(prompt);
+      commandLine.appendChild(command);
+
+      // Create output line
+      const outputLine = document.createElement("div");
+      outputLine.classList.add("terminal-output");
+      outputLine.innerHTML = entry.output.replace(/\n/g, "<br>");
+
+      // Add to terminal body before the typing line
+      terminalBody.insertBefore(commandLine, typingLine);
+      terminalBody.insertBefore(outputLine, typingLine);
+    });
+
+    // Scroll to the bottom of the terminal
+    terminalBody.scrollTop = terminalBody.scrollHeight;
   }
 
-  // Start the typing animation with the first command
-  setTimeout(() => {
-    typeCommand(commands[currentCommandIndex]);
-  }, 1000);
-
-  // Animation for site title
-  const siteTitle = document.querySelector(".site-title");
-  setInterval(() => {
-    siteTitle.style.textShadow =
-      "0 0 15px rgba(125, 207, 255, 0.7), 0 0 40px rgba(125, 207, 255, 0.4)";
-    setTimeout(() => {
-      siteTitle.style.textShadow =
-        "0 0 10px rgba(125, 207, 255, 0.5), 0 0 30px rgba(125, 207, 255, 0.3)";
-    }, 1500);
-  }, 3000);
+  // Initialize everything
+  createFallingStars();
+  createGlowingStars();
+  typeWriter();
+  createTerminalHistory();
 });
