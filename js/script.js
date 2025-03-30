@@ -1,202 +1,84 @@
 document.addEventListener("DOMContentLoaded", function () {
-  initTerminal();
-  createMatrixEffect();
-});
+  // Add twinkling stars effect to the festive greeting
+  const greeting = document.querySelector(".festive-greeting");
 
-function initTerminal() {
-  animateCursor();
+  // Create random stars/lanterns
+  for (let i = 0; i < 20; i++) {
+    const star = document.createElement("div");
+    star.classList.add("lantern");
+    star.textContent = "✧";
+    star.style.position = "absolute";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.fontSize = Math.random() * 12 + 10 + "px";
+    star.style.opacity = Math.random() * 0.5 + 0.2;
+    star.style.animationDelay = Math.random() * 3 + "s";
 
-  typeCommandSequence(
-    [
-      "command-1",
-      "command-2",
-      "command-3",
-      "command-4",
-      "command-5",
-      "command-6",
-      "command-7",
-      "command-8",
-      "command-9",
-      "command-10",
-      "command-11",
-      "command-12",
-      "command-13",
-      "command-14",
-      "command-15",
-      "command-16",
-      "command-17",
-      "command-18",
-      "command-19",
-      "command-20",
-      "command-21",
-      "command-22",
-      "command-23",
-      "command-24",
-      "command-25",
-      "command-26",
-      "command-27",
-    ],
-    30,
-    function () {
-      showElement("greeting");
-
-      setTimeout(() => {
-        typeCommandSequence(
-          [
-            "command-28",
-            "command-29",
-            "command-30",
-            "command-31",
-            "command-32",
-            "command-33",
-            "command-34",
-            "command-35",
-            "command-36",
-            "command-37",
-            "command-38",
-            "command-39",
-            "command-40",
-          ],
-          30,
-          function () {
-            showElement("about");
-
-            setTimeout(() => {
-              typeCommandSequence(["command-41"], 30, function () {
-                showElement("file-list");
-                addTerminalInteractivity();
-              });
-            }, 800);
-          }
-        );
-      }, 800);
-    }
-  );
-}
-
-function typeCommandSequence(commandIds, speed, callback) {
-  let currentIndex = 0;
-
-  function typeNext() {
-    if (currentIndex < commandIds.length) {
-      const commandId = commandIds[currentIndex];
-      typeCommand(commandId, speed, function () {
-        currentIndex++;
-        setTimeout(typeNext, 100);
-      });
-    } else if (callback) {
-      callback();
-    }
+    greeting.appendChild(star);
   }
 
-  typeNext();
-}
+  // Add subtle pulsing animation to the greeting content
+  const greetingContent = document.querySelector(".greeting-content");
+  setInterval(function () {
+    greetingContent.style.boxShadow = "0 0 10px rgba(224, 175, 104, 0.5)";
+    setTimeout(function () {
+      greetingContent.style.boxShadow = "0 0 20px rgba(224, 175, 104, 0.7)";
+    }, 1000);
+  }, 2000);
 
-function typeCommand(elementId, speed, callback) {
-  const element = document.getElementById(elementId);
-  const text = element.innerHTML;
-  element.innerHTML = "";
-  element.style.opacity = "1";
-  element.style.transform = "translateY(0)";
+  // Terminal typing effect
+  const commands = [
+    "ls -l projects/",
+    "cat README.md",
+    "npm start",
+    "git status",
+    "cd projects/new-app",
+    "python3 main.py",
+  ];
 
-  let i = 0;
-  const typing = setInterval(() => {
-    if (i < text.length) {
-      element.innerHTML += text.charAt(i);
-      i++;
-    } else {
-      clearInterval(typing);
-      if (callback) callback();
-    }
-  }, speed);
-}
+  let currentCommandIndex = 0;
+  const typingText = document.querySelector(".typing-text");
+  const cursor = document.querySelector(".cursor");
 
-function showElement(elementId) {
-  const element = document.getElementById(elementId);
-  if (element) {
-    element.style.display = "block";
-    element.style.opacity = "1";
-  }
-}
-
-function animateCursor() {
-  const cursor = document.getElementById("cursor");
-  if (cursor) {
-    setInterval(() => {
-      cursor.style.opacity = cursor.style.opacity === "0" ? "1" : "0";
-    }, 500);
-  }
-}
-
-function addTerminalInteractivity() {
-  const terminalBody = document.querySelector(".terminal-body");
-  const cursor = document.getElementById("cursor");
-
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      const newLine = document.createElement("div");
-      newLine.className = "terminal-line";
-
-      const prompt = document.createElement("span");
-      prompt.className = "prompt";
-      prompt.textContent = ">";
-
-      const command = document.createElement("span");
-      command.className = "command";
-      command.textContent = "";
-
-      newLine.appendChild(prompt);
-      newLine.appendChild(command);
-
-      terminalBody.insertBefore(newLine, cursor.parentNode);
-      terminalBody.scrollTop = terminalBody.scrollHeight;
-    }
-  });
-}
-
-function createMatrixEffect() {
-  const canvas = document.getElementById("matrix-canvas");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789こんにちは世界ばイトスペース";
-  const fontSize = 14;
-  const columns = canvas.width / fontSize;
-
-  const drops = [];
-  for (let i = 0; i < columns; i++) {
-    drops[i] = Math.floor((Math.random() * -canvas.height) / fontSize);
-  }
-
-  function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "#7dcfff";
-    ctx.font = fontSize + "px monospace";
-
-    for (let i = 0; i < drops.length; i++) {
-      const text = characters.charAt(
-        Math.floor(Math.random() * characters.length)
+  function typeCommand(command, index = 0) {
+    if (index < command.length) {
+      typingText.textContent += command.charAt(index);
+      setTimeout(
+        () => typeCommand(command, index + 1),
+        Math.random() * 100 + 50
       );
-      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-      if (drops[i] * fontSize > canvas.height && Math.random() > 0.98) {
-        drops[i] = 0;
-      }
-
-      drops[i]++;
+    } else {
+      // Finished typing current command
+      setTimeout(executeCommand, 1000);
     }
   }
 
-  setInterval(draw, 35);
+  function executeCommand() {
+    // Clear the typing text
+    typingText.textContent = "";
 
-  window.addEventListener("resize", function () {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-}
+    // Execute current command (would add terminal output here)
+    setTimeout(startNewCommand, 500);
+  }
+
+  function startNewCommand() {
+    currentCommandIndex = (currentCommandIndex + 1) % commands.length;
+    typeCommand(commands[currentCommandIndex]);
+  }
+
+  // Start the typing animation with the first command
+  setTimeout(() => {
+    typeCommand(commands[currentCommandIndex]);
+  }, 1000);
+
+  // Animation for site title
+  const siteTitle = document.querySelector(".site-title");
+  setInterval(() => {
+    siteTitle.style.textShadow =
+      "0 0 15px rgba(125, 207, 255, 0.7), 0 0 40px rgba(125, 207, 255, 0.4)";
+    setTimeout(() => {
+      siteTitle.style.textShadow =
+        "0 0 10px rgba(125, 207, 255, 0.5), 0 0 30px rgba(125, 207, 255, 0.3)";
+    }, 1500);
+  }, 3000);
+});
