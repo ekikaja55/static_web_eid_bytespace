@@ -22,11 +22,26 @@ body {
   font-family: "JetBrains Mono", monospace;
   background-color: #0f0f14;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
   color: var(--terminal-text);
+}
+
+.site-title {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: var(--terminal-cyan);
+  text-shadow: 0 0 10px rgba(125, 207, 255, 0.5);
+  letter-spacing: 2px;
+}
+
+.code-brackets {
+  color: var(--terminal-magenta);
 }
 
 .terminal-container {
@@ -36,8 +51,6 @@ body {
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
   animation: appear 0.5s ease forwards;
 }
 
@@ -90,7 +103,7 @@ body {
 .terminal-line {
   margin-bottom: 12px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   opacity: 0;
   transform: translateY(10px);
   animation: lineAppear 0.3s ease forwards;
@@ -108,22 +121,22 @@ body {
 }
 
 .output {
-  padding: 10px 0 15px 0;
+  padding: 10px 0 15px 10px;
   line-height: 1.6;
   white-space: pre-wrap;
-  margin-left: 10px;
   margin-bottom: 15px;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
   opacity: 0;
   animation: fadeIn 0.5s ease forwards;
 }
 
-.greeting-message {
-  color: var(--terminal-yellow);
+.function-block {
+  color: var(--terminal-text);
   padding: 15px;
-  border: 1px dashed var(--terminal-yellow);
+  margin-left: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  text-align: center;
+  border-left: 2px solid var(--terminal-yellow);
 }
 
 .about-message {
@@ -147,16 +160,6 @@ body {
 
 .file-list .executable {
   color: var(--terminal-green);
-}
-
-.ascii-art {
-  margin: 10px 0 20px;
-  font-size: 14px;
-  line-height: 1.2;
-  color: var(--terminal-magenta);
-  user-select: none;
-  opacity: 0;
-  animation: fadeIn 0.8s ease forwards 0.3s;
 }
 
 .cursor {
@@ -197,27 +200,63 @@ body {
 
 .highlight-green {
   color: var(--terminal-green);
-  font-weight: bold;
 }
 
 .highlight-blue {
   color: var(--terminal-blue);
-  font-weight: bold;
 }
 
 .highlight-yellow {
   color: var(--terminal-yellow);
-  font-weight: bold;
 }
 
 .highlight-magenta {
   color: var(--terminal-magenta);
-  font-weight: bold;
 }
 
 .highlight-cyan {
   color: var(--terminal-cyan);
-  font-weight: bold;
+}
+
+.keyword {
+  color: var(--terminal-magenta);
+}
+
+.function {
+  color: var(--terminal-yellow);
+}
+
+.string {
+  color: var(--terminal-green);
+}
+
+.comment {
+  color: #565f89;
+  font-style: italic;
+}
+
+.number {
+  color: var(--terminal-cyan);
+}
+
+.parenthesis {
+  color: var(--terminal-red);
+}
+
+.indented {
+  padding-left: 20px;
+}
+
+.double-indented {
+  padding-left: 40px;
+}
+
+.greeting-box {
+  border: 1px solid var(--terminal-yellow);
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: rgba(224, 175, 104, 0.1);
 }
 
 @keyframes blink {
@@ -297,23 +336,13 @@ body {
   }
 }
 
-@keyframes scan {
-  0% {
-    background-position: 0 -100vh;
-  }
-  35%,
-  100% {
-    background-position: 0 100vh;
-  }
-}
-
 @media (max-width: 768px) {
   .terminal-body {
     height: 500px;
   }
 
-  .ascii-art {
-    font-size: 12px;
+  .site-title {
+    font-size: 2rem;
   }
 }
 
@@ -335,11 +364,11 @@ body {
     font-size: 12px;
   }
 
-  .ascii-art {
-    font-size: 8px;
-  }
-
   .output {
     font-size: 12px;
+  }
+
+  .site-title {
+    font-size: 1.5rem;
   }
 }

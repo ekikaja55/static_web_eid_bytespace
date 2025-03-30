@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <h1 class="site-title">
+      <span class="code-brackets">&lt;</span>BYTESPACE<span
+        class="code-brackets"
+        >/&gt;</span
+      >
+    </h1>
+
     <div class="terminal-container">
       <div class="terminal-header">
         <div class="terminal-buttons">
@@ -14,46 +21,427 @@
           <span class="terminal-button minimize"></span>
           <span class="terminal-button maximize"></span>
         </div>
-        <div class="terminal-title">bytespace@terminal:~</div>
+        <div class="terminal-title">bytespace@terminal:~ javascript</div>
       </div>
 
       <div class="terminal-body">
         <div class="terminal-line">
-          <span class="prompt">bytespace@terminal:~$</span>
-          <span class="command" id="command-1">./display_logo.sh</span>
-        </div>
-
-        <div class="ascii-art" id="ascii-logo"></div>
-
-        <div class="terminal-line">
-          <span class="prompt">bytespace@terminal:~$</span>
-          <span class="command" id="command-2">./display_greeting.sh</span>
-        </div>
-
-        <div class="output greeting-message" id="greeting"></div>
-
-        <div class="terminal-line">
-          <span class="prompt">bytespace@terminal:~$</span>
-          <span class="command" id="command-3">cat about_bytespace.txt</span>
-        </div>
-
-        <div class="output about-message" id="about"></div>
-
-        <div class="terminal-line">
-          <span class="prompt">bytespace@terminal:~$</span>
-          <span class="command" id="command-4"
-            >ls -la community_resources/</span
+          <span class="prompt">></span>
+          <span class="command" id="command-1"
+            ><span class="keyword">function</span>
+            <span class="function">ucapanIdulFitri</span
+            ><span class="parenthesis">()</span>
+            <span class="parenthesis">{</span></span
           >
         </div>
 
-        <div class="output file-list" id="file-list"></div>
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-2"
+            ><span class="comment">// Menampilkan ucapan Idul Fitri</span></span
+          >
+        </div>
 
         <div class="terminal-line">
-          <span class="prompt">bytespace@terminal:~$</span>
+          <span class="prompt"></span>
+          <span class="command indented" id="command-3"
+            ><span class="keyword">const</span> tanggal =
+            <span class="string">"1446 H"</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-4"
+            ><span class="keyword">const</span> doa =
+            <span class="string"
+              >"Taqabbalallahu Minna Wa Minkum, Shiyamana Wa Shiyamakum"</span
+            >;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-5"
+            ><span class="keyword">let</span> ucapan =
+            <span class="string">""</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-6"
+            >ucapan +=
+            <span class="string">"Selamat Hari Raya Idul Fitri "</span> +
+            tanggal;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-7"
+            >ucapan += <span class="string">"\n"</span> + doa;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-8"
+            >ucapan +=
+            <span class="string"
+              >"\n\nMohon maaf lahir dan batin kepada seluruh anggota"</span
+            >;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-9"
+            >ucapan +=
+            <span class="string"
+              >"\nkomunitas ByteSpace. Semoga kita dapat terus berkarya"</span
+            >;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-10"
+            >ucapan +=
+            <span class="string">"\ndan berbagi ilmu dalam kebaikan."</span
+            >;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-11"
+            ><span class="keyword">return</span>
+            <span class="function">createGreetingBox</span
+            ><span class="parenthesis">(</span>ucapan<span class="parenthesis"
+              >)</span
+            >;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command" id="command-12"
+            ><span class="parenthesis">}</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command" id="command-13"></span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command" id="command-14"
+            ><span class="keyword">function</span>
+            <span class="function">createGreetingBox</span
+            ><span class="parenthesis">(</span>message<span class="parenthesis"
+              >)</span
+            >
+            <span class="parenthesis">{</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-15"
+            ><span class="comment"
+              >// Membuat kotak dekoratif untuk greeting</span
+            ></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-16"
+            ><span class="keyword">const</span> lines = message.<span
+              class="function"
+              >split</span
+            ><span class="parenthesis">(</span><span class="string">"\n"</span
+            ><span class="parenthesis">)</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-17"
+            ><span class="keyword">const</span> maxLength =
+            <span class="function">Math</span>.<span class="function">max</span
+            ><span class="parenthesis">(</span>...<span class="function"
+              >lines</span
+            >.<span class="function">map</span
+            ><span class="parenthesis">(</span>line => line.<span
+              class="function"
+              >length</span
+            ><span class="parenthesis">))</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-18"
+            ><span class="keyword">let</span> result =
+            <span class="string">"╔"</span> +
+            <span class="string">"═"</span>.<span class="function">repeat</span
+            ><span class="parenthesis">(</span>maxLength +
+            <span class="number">2</span><span class="parenthesis">)</span> +
+            <span class="string">"╗\n"</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-19"></span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-20"
+            ><span class="keyword">for</span> <span class="parenthesis">(</span
+            ><span class="keyword">const</span> line
+            <span class="keyword">of</span> lines<span class="parenthesis"
+              >)</span
+            >
+            <span class="parenthesis">{</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-21"
+            >result += <span class="string">"║ "</span> + line +
+            <span class="string">" "</span>.<span class="function">repeat</span
+            ><span class="parenthesis">(</span>maxLength - line.<span
+              class="function"
+              >length</span
+            >
+            + <span class="number">1</span><span class="parenthesis">)</span> +
+            <span class="string">"║\n"</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-22"
+            ><span class="parenthesis">}</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-23"></span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-24"
+            >result += <span class="string">"╚"</span> +
+            <span class="string">"═"</span>.<span class="function">repeat</span
+            ><span class="parenthesis">(</span>maxLength +
+            <span class="number">2</span><span class="parenthesis">)</span> +
+            <span class="string">"╝"</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-25"
+            ><span class="keyword">return</span> result;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command" id="command-26"
+            ><span class="parenthesis">}</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">></span>
+          <span class="command" id="command-27"
+            ><span class="function">ucapanIdulFitri</span
+            ><span class="parenthesis">()</span>;</span
+          >
+        </div>
+
+        <div class="output" id="greeting">
+          <span class="greeting-box"
+            >╔══════════════════════════════════════════════════════════╗ ║
+            Selamat Hari Raya Idul Fitri 1446 H ║ ║ Taqabbalallahu Minna Wa
+            Minkum, Shiyamana Wa Shiyamakum ║ ║ ║ ║ Mohon maaf lahir dan batin
+            kepada seluruh anggota ║ ║ komunitas ByteSpace. Semoga kita dapat
+            terus berkarya ║ ║ dan berbagi ilmu dalam kebaikan. ║
+            ╚══════════════════════════════════════════════════════════╝</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">></span>
+          <span class="command" id="command-28"
+            ><span class="keyword">function</span>
+            <span class="function">aboutBytespace</span
+            ><span class="parenthesis">()</span>
+            <span class="parenthesis">{</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-29"
+            ><span class="keyword">const</span> info =
+            <span class="parenthesis">{</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-30"
+            >name: <span class="string">"ByteSpace"</span>,</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-31"
+            >description:
+            <span class="string"
+              >"Komunitas para coders yang menjadi tempat untuk sharing
+              pengetahuan dan belajar bersama."</span
+            >,</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-32"
+            >mission:
+            <span class="string"
+              >"Membangun ekosistem pembelajaran yang inklusif dan kolaboratif
+              untuk semua developer di Indonesia."</span
+            >,</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-33"
+            >vision:
+            <span class="string"
+              >"Menjadi platform komunitas utama yang mendorong inovasi dan
+              pertumbuhan talenta digital di tanah air."</span
+            >,</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-34"
+            >founded: <span class="string">"2023-01-15"</span>,</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-35"
+            >members: <span class="number">1500</span>,</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command double-indented" id="command-36"
+            >events: <span class="number">48</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-37"
+            ><span class="parenthesis">}</span>;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command indented" id="command-38"
+            ><span class="keyword">return</span> info;</span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt"></span>
+          <span class="command" id="command-39"
+            ><span class="parenthesis">}</span></span
+          >
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">></span>
+          <span class="command" id="command-40"
+            ><span class="function">aboutBytespace</span
+            ><span class="parenthesis">()</span>;</span
+          >
+        </div>
+
+        <div class="output about-message" id="about">
+          <span class="highlight-cyan">/** ABOUT BYTESPACE **/</span>
+
+          {
+          <span class="highlight-green">name:</span> "ByteSpace",
+          <span class="highlight-green">description:</span> "Komunitas para
+          coders yang menjadi tempat untuk sharing pengetahuan dan belajar
+          bersama.", <span class="highlight-green">mission:</span> "Membangun
+          ekosistem pembelajaran yang inklusif dan kolaboratif untuk semua
+          developer di Indonesia.",
+          <span class="highlight-green">vision:</span> "Menjadi platform
+          komunitas utama yang mendorong inovasi dan pertumbuhan talenta digital
+          di tanah air.",
+          <span class="highlight-blue">founded:</span> "2023-01-15",
+          <span class="highlight-blue">members:</span> 1500,
+          <span class="highlight-blue">events:</span> 48 }
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">></span>
+          <span class="command" id="command-41"
+            ><span class="function">getResources</span
+            ><span class="parenthesis">()</span>;</span
+          >
+        </div>
+
+        <div class="output file-list" id="file-list">
+          total 32 drwxr-xr-x 5 bytespace coders 4096 Mar 30 09:24
+          <span class="directory">.</span> drwxr-xr-x 3 bytespace coders 4096
+          Mar 30 09:24 <span class="directory">..</span> -rwxr-xr-x 1 bytespace
+          coders 2048 Mar 30 09:24
+          <span class="executable">bootcamp_resources.sh</span> drwxr-xr-x 2
+          bytespace coders 4096 Mar 30 09:24
+          <span class="directory">events</span> -rw-r--r-- 1 bytespace coders
+          3521 Mar 30 09:24 <span class="file">member_list.dat</span> drwxr-xr-x
+          4 bytespace coders 4096 Mar 30 09:24
+          <span class="directory">projects</span> -rwxr-xr-x 1 bytespace coders
+          1024 Mar 30 09:24
+          <span class="executable">register_member.sh</span> drwxr-xr-x 3
+          bytespace coders 4096 Mar 30 09:24
+          <span class="directory">tutorials</span> -rw-r--r-- 1 bytespace coders
+          5120 Mar 30 09:24 <span class="file">weekly_challenge.md</span>
+        </div>
+
+        <div class="terminal-line">
+          <span class="prompt">></span>
           <span class="cursor" id="cursor">_</span>
         </div>
       </div>
     </div>
+
+    <div class="matrix-effect" id="matrix-canvas"></div>
 
     <script src="js/script.js"></script>
   </body>
