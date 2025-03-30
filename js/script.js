@@ -1,425 +1,184 @@
 document.addEventListener("DOMContentLoaded", function () {
-  initParticles();
+  createStars();
 
-  createBinaryElements();
-
-  createFloatingIcons();
-
-  animateElements();
-
-  adjustForMediaQueries();
-
-  window.addEventListener("resize", function () {
-    adjustForMediaQueries();
-  });
+  addInteractiveEffects();
 });
 
-function initParticles() {
-  particlesJS("particles-js", {
-    particles: {
-      number: {
-        value: 80,
-        density: {
-          enable: true,
-          value_area: 800,
-        },
-      },
-      color: {
-        value: "#38bdf8",
-      },
-      shape: {
-        type: "circle",
-      },
-      opacity: {
-        value: 0.3,
-        random: true,
-        anim: {
-          enable: true,
-          speed: 1,
-          opacity_min: 0.1,
-          sync: false,
-        },
-      },
-      size: {
-        value: 3,
-        random: true,
-        anim: {
-          enable: true,
-          speed: 2,
-          size_min: 0.1,
-          sync: false,
-        },
-      },
-      line_linked: {
-        enable: true,
-        distance: 150,
-        color: "#38bdf8",
-        opacity: 0.2,
-        width: 1,
-      },
-      move: {
-        enable: true,
-        speed: 1,
-        direction: "none",
-        random: true,
-        straight: false,
-        out_mode: "out",
-        bounce: false,
-        attract: {
-          enable: true,
-          rotateX: 600,
-          rotateY: 1200,
-        },
-      },
-    },
-    interactivity: {
-      detect_on: "canvas",
-      events: {
-        onhover: {
-          enable: true,
-          mode: "grab",
-        },
-        onclick: {
-          enable: true,
-          mode: "push",
-        },
-        resize: true,
-      },
-      modes: {
-        grab: {
-          distance: 140,
-          line_linked: {
-            opacity: 0.5,
-          },
-        },
-        push: {
-          particles_nb: 4,
-        },
-      },
-    },
-    retina_detect: true,
-  });
-}
+function createStars() {
+  const starsContainer = document.getElementById("stars");
+  const numStars = 150;
 
-function createBinaryElements() {
-  const container = document.getElementById("binary-container");
-  if (!container) return;
+  for (let i = 0; i < numStars; i++) {
+    const star = document.createElement("div");
+    star.classList.add("star");
 
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
 
-  container.innerHTML = "";
+    const size = Math.random() * 3 + 1;
 
-  for (let i = 0; i < 25; i++) {
-    const binary = document.createElement("div");
-    binary.classList.add("binary");
-    binary.style.left = `${Math.random() * width}px`;
-    binary.style.top = `${Math.random() * height}px`;
+    const delay = Math.random() * 4;
 
-    let binaryText = "";
-    for (let j = 0; j < 8; j++) {
-      binaryText += Math.round(Math.random());
+    const duration = 3 + Math.random() * 3;
+
+    star.style.left = `${x}%`;
+    star.style.top = `${y}%`;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.animationDelay = `${delay}s`;
+    star.style.animationDuration = `${duration}s`;
+
+    if (i % 20 === 0) {
+      createShootingStar();
     }
-    binary.textContent = binaryText;
-    container.appendChild(binary);
 
-    gsap.to(binary, {
-      y: "-=50",
-      duration: 10 + Math.random() * 10,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: Math.random() * 5,
-    });
+    starsContainer.appendChild(star);
   }
 }
 
-function createFloatingIcons() {
-  const container = document.querySelector(".floating-icons");
-  if (!container) return;
+function createShootingStar() {
+  const starsContainer = document.getElementById("stars");
+  const shootingStar = document.createElement("div");
 
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  const iconClasses = [
-    "fa-code",
-    "fa-terminal",
-    "fa-database",
-    "fa-js",
-    "fa-python",
-    "fa-html5",
-    "fa-css3-alt",
-    "fa-react",
-    "fa-node",
-    "fa-java",
-    "fa-php",
-    "fa-github",
-    "fa-git-alt",
-    "fa-aws",
-  ];
+  shootingStar.style.position = "absolute";
+  shootingStar.style.width = "2px";
+  shootingStar.style.height = "2px";
+  shootingStar.style.backgroundColor = "white";
+  shootingStar.style.borderRadius = "50%";
+  shootingStar.style.boxShadow = "0 0 10px 2px white";
 
-  container.innerHTML = "";
+  const startX = Math.random() * 100;
+  shootingStar.style.left = `${startX}%`;
+  shootingStar.style.top = "0";
 
-  const numIcons = width < 768 ? 10 : 15;
+  const animation = shootingStar.animate(
+    [
+      {
+        top: "0",
+        left: `${startX}%`,
+        opacity: 1,
+        boxShadow: "0 0 10px 2px white, 0 0 20px 5px rgba(255, 255, 255, 0.5)",
+        offset: 0,
+      },
+      {
+        top: "100vh",
+        left: `${startX - 20 + Math.random() * 40}%`,
+        opacity: 0,
+        boxShadow: "0 0 0 0 white",
+        offset: 1,
+      },
+    ],
+    {
+      duration: 1000 + Math.random() * 2000,
+      easing: "cubic-bezier(0.25, 0.1, 0.25, 1)",
+    }
+  );
 
-  for (let i = 0; i < numIcons; i++) {
-    const icon = document.createElement("i");
-    const randomClass =
-      iconClasses[Math.floor(Math.random() * iconClasses.length)];
+  starsContainer.appendChild(shootingStar);
 
-    if (randomClass.includes("fa-")) {
-      if (
-        randomClass.startsWith("fa-git") ||
-        randomClass === "fa-github" ||
-        randomClass === "fa-node" ||
-        randomClass === "fa-aws" ||
-        randomClass === "fa-java" ||
-        randomClass === "fa-php"
-      ) {
-        icon.className = `fa-brands ${randomClass}`;
+  animation.onfinish = () => {
+    shootingStar.remove();
+
+    setTimeout(createShootingStar, 3000 + Math.random() * 5000);
+  };
+}
+
+function addInteractiveEffects() {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach((card) => {
+    card.addEventListener("mousemove", function (e) {
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const tiltX = (y / rect.height - 0.5) * 10;
+      const tiltY = (x / rect.width - 0.5) * -10;
+
+      this.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+
+      const shine =
+        this.querySelector(".shine") || document.createElement("div");
+      if (!this.querySelector(".shine")) {
+        shine.classList.add("shine");
+        shine.style.position = "absolute";
+        shine.style.top = "0";
+        shine.style.left = "0";
+        shine.style.right = "0";
+        shine.style.bottom = "0";
+        shine.style.pointerEvents = "none";
+        shine.style.background =
+          "radial-gradient(circle at " +
+          x +
+          "px " +
+          y +
+          "px, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 80%)";
+        this.appendChild(shine);
       } else {
-        icon.className = `fa-solid ${randomClass}`;
+        shine.style.background =
+          "radial-gradient(circle at " +
+          x +
+          "px " +
+          y +
+          "px, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 80%)";
       }
-    }
-
-    icon.style.left = `${Math.random() * 90 + 5}%`;
-    icon.style.top = `${Math.random() * 90 + 5}%`;
-    icon.style.fontSize = `${Math.random() * 16 + 16}px`;
-    icon.style.opacity = "0";
-    container.appendChild(icon);
-
-    gsap.to(icon, {
-      opacity: 0.15,
-      duration: 2,
-      delay: Math.random() * 3,
     });
 
-    gsap.to(icon, {
-      y: "-=40",
-      x: `${(Math.random() - 0.5) * 20}`,
-      duration: 10 + Math.random() * 20,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: Math.random() * 5,
+    card.addEventListener("mouseleave", function () {
+      this.style.transform = "";
+
+      const shine = this.querySelector(".shine");
+      if (shine) {
+        shine.remove();
+      }
     });
-  }
-}
-
-function animateElements() {
-  const mainContent = document.querySelector(".main-container");
-  if (mainContent) {
-    mainContent.style.visibility = "visible";
-  }
-
-  const textElements = document.querySelectorAll(
-    ".code-line, .greeting-title, .greeting-message"
-  );
-  textElements.forEach((element) => {
-    element.style.display = "block";
   });
 
-  gsap.fromTo(
-    "#bytespace-text",
-    { opacity: 0, y: 30 },
-    { opacity: 1, y: 0, duration: 1.5, ease: "back.out" }
-  );
+  const icons = document.querySelectorAll(".icon");
 
-  gsap.fromTo(
-    ".bracket-left",
-    { opacity: 0, x: 30 },
-    { opacity: 1, x: 0, duration: 1, ease: "back.out", delay: 0.3 }
-  );
+  icons.forEach((icon) => {
+    icon.addEventListener("click", function () {
+      this.style.transform = "scale(0.9)";
 
-  gsap.fromTo(
-    ".bracket-right",
-    { opacity: 0, x: -30 },
-    { opacity: 1, x: 0, duration: 1, ease: "back.out", delay: 0.3 }
-  );
+      setTimeout(() => {
+        this.style.transform = "scale(1.1)";
+      }, 150);
 
-  const codeLines = document.querySelectorAll(".code-line");
-  codeLines.forEach((line, index) => {
-    gsap.fromTo(
-      line,
-      { opacity: 0, y: 10, display: "block" },
-      { opacity: 1, y: 0, duration: 0.5, delay: 0.8 + index * 0.15 }
-    );
-  });
+      const ripple = document.createElement("div");
+      ripple.style.position = "absolute";
+      ripple.style.width = "100%";
+      ripple.style.height = "100%";
+      ripple.style.backgroundColor = "rgba(0, 180, 216, 0.2)";
+      ripple.style.borderRadius = "50%";
+      ripple.style.transform = "scale(0)";
+      ripple.style.transition = "transform 0.6s, opacity 0.6s";
 
-  gsap.fromTo(
-    ".greeting-content",
-    { opacity: 0, scale: 0.9 },
-    { opacity: 1, scale: 1, duration: 1, delay: 1.5 }
-  );
+      this.appendChild(ripple);
 
-  gsap.fromTo(
-    ".greeting-title",
-    { opacity: 0, y: 15 },
-    { opacity: 1, y: 0, duration: 0.8, delay: 1.7 }
-  );
+      setTimeout(() => {
+        ripple.style.transform = "scale(2)";
+        ripple.style.opacity = "0";
+      }, 10);
 
-  gsap.fromTo(
-    ".greeting-message",
-    { opacity: 0, y: 15 },
-    { opacity: 1, y: 0, duration: 0.8, delay: 1.9 }
-  );
-
-  gsap.fromTo(
-    ".gradient-text",
-    { opacity: 0 },
-    { opacity: 1, duration: 1.2, delay: 1.2 }
-  );
-
-  const cursor = document.querySelector(".cursor");
-  if (cursor) {
-    gsap.to(cursor, {
-      opacity: 0,
-      repeat: -1,
-      yoyo: true,
-      duration: 0.6,
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
     });
-  }
-
-  gsap.fromTo(
-    ".footer",
-    { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 1, delay: 2.5 }
-  );
-
-  gsap.fromTo(
-    ".lantern-left",
-    { opacity: 0, y: 30 },
-    { opacity: 0.7, y: 0, duration: 1.5, delay: 2 }
-  );
-
-  gsap.fromTo(
-    ".lantern-right",
-    { opacity: 0, y: 30 },
-    { opacity: 0.7, y: 0, duration: 1.5, delay: 2.3 }
-  );
-}
-
-function adjustForMediaQueries() {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  const logo = document.querySelector(".logo");
-  const greetingCard = document.querySelector(".greeting-card");
-  const codeDecorations = document.querySelector(".code-decoration");
-  const hiddenMobileElements = document.querySelectorAll(".code-hidden-mobile");
-
-  if (logo) {
-    if (width < 380) {
-      logo.style.fontSize = "3rem";
-    } else if (width < 640) {
-      logo.style.fontSize = "4rem";
-    } else if (width < 768) {
-      logo.style.fontSize = "6rem";
-    } else if (width < 1024) {
-      logo.style.fontSize = "7rem";
-    } else {
-      logo.style.fontSize = "8rem";
-    }
-  }
-
-  if (codeDecorations) {
-    codeDecorations.style.display = width >= 640 ? "block" : "none";
-  }
-
-  if (greetingCard) {
-    if (width < 640) {
-      greetingCard.style.padding = "0.5rem";
-    } else {
-      greetingCard.style.padding = "0";
-    }
-  }
-
-  hiddenMobileElements.forEach((element) => {
-    element.style.display = width < 640 ? "none" : "block";
   });
 
-  if (width < 768) {
-    if (window.pJSDom && window.pJSDom[0]) {
-      window.pJSDom[0].pJS.particles.number.value = 40;
-      window.pJSDom[0].pJS.fn.particlesRefresh();
-    }
-  }
-
-  if (width < 380) {
-    document.documentElement.style.setProperty(
-      "--greeting-font-size",
-      "0.9rem"
-    );
-  } else {
-    document.documentElement.style.setProperty(
-      "--greeting-font-size",
-      "1.1rem"
-    );
-  }
-}
-
-function addTypewriterEffect() {
-  const textElement = document.querySelector(".execution");
-  if (!textElement) return;
-
-  const text = textElement.textContent;
-  textElement.textContent = "";
+  const greeting = document.querySelector(".greeting");
+  const originalText = greeting.textContent;
+  greeting.textContent = "";
 
   let i = 0;
-  const typeSpeed = 100;
-
-  function type() {
-    if (i < text.length) {
-      textElement.textContent += text.charAt(i);
+  const typeInterval = setInterval(() => {
+    if (i < originalText.length) {
+      greeting.textContent += originalText.charAt(i);
       i++;
-      setTimeout(type, typeSpeed);
+    } else {
+      clearInterval(typeInterval);
     }
-  }
-
-  setTimeout(() => {
-    type();
-  }, 3000);
+  }, 100);
 }
 
-setTimeout(addTypewriterEffect, 2000);
-
-function addPulseToGreeting() {
-  const greetingTitle = document.querySelector(".greeting-title");
-  if (!greetingTitle) return;
-
-  gsap.to(greetingTitle, {
-    scale: 1.05,
-    duration: 2,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut",
-  });
-}
-
-function revealHiddenContent() {
-  const allElements = document.querySelectorAll("*");
-  allElements.forEach((element) => {
-    if (
-      window.getComputedStyle(element).display === "none" &&
-      !element.classList.contains("code-hidden-mobile")
-    ) {
-      gsap.to(element, {
-        display: "block",
-        opacity: 1,
-        duration: 1,
-      });
-    }
-  });
-}
-
-setTimeout(revealHiddenContent, 3000);
-setTimeout(addPulseToGreeting, 3000);
-
-document.fonts.ready.then(() => {
-  const textElements = document.querySelectorAll("h1, h2, p, .code-line");
-  textElements.forEach((el) => {
-    el.style.opacity = "0.99";
-    setTimeout(() => {
-      el.style.opacity = "1";
-    }, 10);
-  });
-});
+setTimeout(createShootingStar, 2000);
