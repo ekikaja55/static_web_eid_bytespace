@@ -3,48 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BYTESPACE - Selamat Hari Raya Idul Fitri</title>
+    <title>BYTESPACE - Terminal</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <div class="stars" id="stars"></div>
-
-    <div class="container">
-      <div class="logo-container">
-        <h1 class="logo">BYTESPACE</h1>
-        <div class="logo-underline"></div>
+    <div class="terminal-container">
+      <div class="terminal-header">
+        <div class="terminal-buttons">
+          <span class="terminal-button close"></span>
+          <span class="terminal-button minimize"></span>
+          <span class="terminal-button maximize"></span>
+        </div>
+        <div class="terminal-title">bytespace@terminal:~</div>
       </div>
 
-      <div class="card main-card">
-        <h2 class="greeting">Selamat Hari Raya Idul Fitri 1446 H</h2>
+      <div class="terminal-body">
+        <div class="terminal-line">
+          <span class="prompt">bytespace@terminal:~$</span>
+          <span class="command" id="command-1">./display_logo.sh</span>
+        </div>
 
-        <div class="ornament left"></div>
-        <div class="ornament right"></div>
+        <div class="ascii-art" id="ascii-logo"></div>
 
-        <p class="message">
-          Taqabbalallahu Minna Wa Minkum, Shiyamana Wa Shiyamakum.<br />
-          Mohon maaf lahir dan batin kepada seluruh anggota komunitas
-          ByteSpace.<br />
-          Semoga kita dapat terus berkarya dan berbagi ilmu dalam kebaikan.
-        </p>
+        <div class="terminal-line">
+          <span class="prompt">bytespace@terminal:~$</span>
+          <span class="command" id="command-2">./display_greeting.sh</span>
+        </div>
 
-        <div class="lantern left"></div>
-        <div class="lantern right"></div>
-      </div>
+        <div class="output greeting-message" id="greeting"></div>
 
-      <div class="card about-card">
-        <h3 class="about-title">Tentang ByteSpace</h3>
-        <p>
-          ByteSpace adalah komunitas para coders yang menjadi tempat untuk
-          sharing pengetahuan dan belajar bersama. Kami percaya bahwa kolaborasi
-          dan berbagi ilmu adalah kunci untuk memajukan dunia teknologi di
-          Indonesia.
-        </p>
+        <div class="terminal-line">
+          <span class="prompt">bytespace@terminal:~$</span>
+          <span class="command" id="command-3">cat about_bytespace.txt</span>
+        </div>
 
-        <div class="icons">
-          <div class="icon code"></div>
-          <div class="icon share"></div>
-          <div class="icon learn"></div>
+        <div class="output about-message" id="about"></div>
+
+        <div class="terminal-line">
+          <span class="prompt">bytespace@terminal:~$</span>
+          <span class="command" id="command-4"
+            >ls -la community_resources/</span
+          >
+        </div>
+
+        <div class="output file-list" id="file-list"></div>
+
+        <div class="terminal-line">
+          <span class="prompt">bytespace@terminal:~$</span>
+          <span class="cursor" id="cursor">_</span>
         </div>
       </div>
     </div>
